@@ -21,7 +21,7 @@ def wechat_auth():
         s = [timestamp, nonce, token]
         s.sort()
         s = ''.join(s)
-        if (hashlib.sha1(s).hexdigest() == signature):
+        if (hashlib.sha1(s).encode('utf-8').hexdigest() == signature):
             return make_response(echostr)
     xml_recv = ET.fromstring(request.data)
     ToUserName = xml_recv.find("ToUserName").text
@@ -30,4 +30,7 @@ def wechat_auth():
     reply = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>"
     response = make_response(reply % (FromUserName, ToUserName, str(int(time.time())), Content))
     response.content_type = 'application/xml'
-    return response  
+    return response
+
+if __name__ == '__main__':
+    app.run('0.0.0.0',5001)
