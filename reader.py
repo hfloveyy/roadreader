@@ -22,13 +22,13 @@ def reader(name):
     url = WEATHER_URL + KEY + '&city=' + name
     print(url)
     content = requests.get(url)
-    print(content.text)
+    print(content.json()['lives'][0]['city'])
 
     #url2 = URL + '&name=' + name + '&adcode=210100'  + '&' + KEY
     #print(url2)
     #content2 = requests.get(url2)
     #print(content2.text)
-    return content.text
+    return content.json()['lives'][0]['city']
 
 
 if __name__ == '__main__':
