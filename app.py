@@ -2,6 +2,8 @@
 import time
 from flask import Flask, request, make_response
 import hashlib
+import receive
+import reply
 import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
@@ -20,17 +22,23 @@ def wechat_auth():
         echostr = query.get('echostr', '')
         s = [timestamp, nonce, token]
         s.sort()
-        s = ''.join(s)
-        if (hashlib.sha1(s).encode('utf-8').hexdigest() == signature):
+        s = ''.join(s).encode('utf-8')
+        if (hashlib.sha1(s).hexdigest() == signature):
             return make_response(echostr)
-    xml_recv = ET.fromstring(request.data)
-    ToUserName = xml_recv.find("ToUserName").text
-    FromUserName = xml_recv.find("FromUserName").text
-    Content = xml_recv.find("Content").text
-    reply = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>"
-    response = make_response(reply % (FromUserName, ToUserName, str(int(time.time())), Content))
-    response.content_type = 'application/xml'
-    return response
+    #xml_recv = ET.fromstring(request.data)
+    try:
+        recMsg = receive.parse_xml(request.stream.read())
+        if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
+            toUser = recMsg.FromUserName
+            fromUser = recMsg.ToUserName
+            content = "test"
+            replyMsg = reply.TextMsg(toUser, fromUser, content)
+            return replyMsg.send()
+        else:
+            print("暂且不处理")
+            return "success"
+    except Exception as e:
+        return e
 
 if __name__ == '__main__':
     app.run('0.0.0.0',5001)
