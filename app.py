@@ -41,4 +41,4 @@ def wechat_auth():
         return e
 
 if __name__ == '__main__':
-    app.run('0.0.0.0',5001)
+    app.run('0.0.0.0',80)
