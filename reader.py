@@ -11,17 +11,25 @@ city_list = ['北京','上海','广州','深圳','宁波','武汉','重庆',
 
 
 KEY = 'key=9813343e8373efb0ceb3380b07094f8a'
-URL = 'http://restapi.amap.com/v3/weather/weatherInfo?'#'http://restapi.amap.com/v3/traffic/status/road?'
-URL2 = 'http://restapi.amap.com/v3/traffic/status/road?'
+WEATHER_URL = 'http://restapi.amap.com/v3/weather/weatherInfo?'#'http://restapi.amap.com/v3/traffic/status/road?'
+URL = 'http://restapi.amap.com/v3/traffic/status/road?'
 def reader(name):
-    url = URL + KEY + '&city=沈阳'
+    '''
+    if name not in city_list:
+        return '您所在城市暂不能查询'
+    '''
+
+    url = WEATHER_URL + KEY + '&city=' + name
     print(url)
     content = requests.get(url)
     print(content.text)
 
-    url2 = URL2 + '&name=' + name + '&adcode=210100'  + '&' + KEY
-    print(url2)
-    content2 = requests.get(url2)
-    print(content2.text)
+    #url2 = URL + '&name=' + name + '&adcode=210100'  + '&' + KEY
+    #print(url2)
+    #content2 = requests.get(url2)
+    #print(content2.text)
+    return content.text
+
+
 if __name__ == '__main__':
-    reader('松花江街')
+    reader('哈尔滨')

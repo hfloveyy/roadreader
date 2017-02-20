@@ -4,7 +4,7 @@ from flask import Flask, request, make_response
 import hashlib
 import receive
 import reply
-import xml.etree.ElementTree as ET
+import reader
 
 app = Flask(__name__)
 
@@ -31,7 +31,7 @@ def wechat_auth():
         if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
             toUser = recMsg.FromUserName
             fromUser = recMsg.ToUserName
-            content = "test"
+            content = reader(recMsg.Content)
             replyMsg = reply.TextMsg(toUser, fromUser, content)
             return replyMsg.send()
         else:
