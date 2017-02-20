@@ -22,8 +22,18 @@ def reader(name):
     url = WEATHER_URL + KEY + '&city=' + name
     print(url)
     content = requests.get(url)
-    print(content.json()['lives'][0]['city'])
-
+    print(content.json())
+    '''
+    winddirection 西北
+    adcode 城市编码
+    temperature 温度
+    humidity 湿度
+    windpower 风力
+    weather 天气
+    reporttime 时间
+    city 城市
+    province 省份
+    '''
     #url2 = URL + '&name=' + name + '&adcode=210100'  + '&' + KEY
     #print(url2)
     #content2 = requests.get(url2)

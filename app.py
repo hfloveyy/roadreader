@@ -31,9 +31,7 @@ def wechat_auth():
         if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
             toUser = recMsg.FromUserName
             fromUser = recMsg.ToUserName
-            print(recMsg.Content)
             content = reader.reader(recMsg.Content)
-            print(content)
             replyMsg = reply.TextMsg(toUser, fromUser, content)
             return replyMsg.send()
         else:
