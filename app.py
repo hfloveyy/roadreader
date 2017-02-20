@@ -32,7 +32,7 @@ def wechat_auth():
             toUser = recMsg.FromUserName
             fromUser = recMsg.ToUserName
             print(recMsg.Content)
-            content = reader(recMsg.Content)
+            content = reader.reader(recMsg.Content)
             print(content)
             replyMsg = reply.TextMsg(toUser, fromUser, content)
             return replyMsg.send()
