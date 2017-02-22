@@ -34,6 +34,12 @@ def wechat_auth():
             content = reader.reader(recMsg.Content)
             replyMsg = reply.TextMsg(toUser, fromUser, content)
             return replyMsg.send()
+        elif isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'location':
+            toUser = recMsg.FromUserName
+            fromUser = recMsg.ToUserName
+            content = recMsg.Latitude
+            replyMsg = reply.TextMsg(toUser, fromUser, content)
+            return replyMsg.send()
         else:
             print("暂且不处理")
             return "success"

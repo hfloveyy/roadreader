@@ -12,6 +12,9 @@ def parse_xml(web_data):
         return TextMsg(xmlData)
     elif msg_type == 'image':
         return ImageMsg(xmlData)
+    elif msg_type == 'location':
+        return LocationMsg(xmlData)
+
 
 class Msg(object):
     def __init__(self, xmlData):
@@ -31,3 +34,9 @@ class ImageMsg(Msg):
         Msg.__init__(self, xmlData)
         self.PicUrl = xmlData.find('PicUrl').text
         self.MediaId = xmlData.find('MediaId').text
+
+class LocationMsg(Msg):
+    def __init__(self,xmlData ):
+        Msg.__init__(self, xmlData)
+        self.Latitude = xmlData.find('Latitude').text
+        self.Longitude = xmlData.find('Longitude').text
