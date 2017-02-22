@@ -13,7 +13,7 @@ def parse_xml(web_data):
     elif msg_type == 'image':
         return ImageMsg(xmlData)
     elif msg_type == 'location':
-        return TextMsg(xmlData)
+        return LocationMsg(xmlData)
 
 
 class Msg(object):
