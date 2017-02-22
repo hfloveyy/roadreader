@@ -1,6 +1,6 @@
 # -*- coding:utf8 -*-
 import time
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, session
 import hashlib
 import receive
 import reply
@@ -27,19 +27,25 @@ def wechat_auth():
             return make_response(echostr)
     #xml_recv = ET.fromstring(request.data)
     try:
+
         recMsg = receive.parse_xml(request.stream.read())
-        if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
-            toUser = recMsg.FromUserName
-            fromUser = recMsg.ToUserName
-            content = reader.reader(recMsg.Content)
-            replyMsg = reply.TextMsg(toUser, fromUser, content)
-            return replyMsg.send()
-        elif isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'location':
-            toUser = recMsg.FromUserName
-            fromUser = recMsg.ToUserName
-            content = recMsg.Location_X
-            replyMsg = reply.TextMsg(toUser, fromUser, content)
-            return replyMsg.send()
+        if isinstance(recMsg, receive.Msg):
+            if recMsg.FromUserName in session:
+                pass
+            else:
+                session[recMsg.FromUserName] = recMsg.FromUserName
+            if recMsg.MsgType == 'text':
+                toUser = recMsg.FromUserName
+                fromUser = recMsg.ToUserName
+                content = reader.reader(recMsg.Content)
+                replyMsg = reply.TextMsg(toUser, fromUser, content)
+                return replyMsg.send()
+            elif recMsg.MsgType == 'location':
+                toUser = recMsg.FromUserName
+                fromUser = recMsg.ToUserName
+                content = recMsg.Label
+                replyMsg = reply.TextMsg(toUser, fromUser, content)
+                return replyMsg.send()
         else:
             print("暂且不处理")
             return "success"
