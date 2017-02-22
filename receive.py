@@ -38,5 +38,7 @@ class ImageMsg(Msg):
 class LocationMsg(Msg):
     def __init__(self,xmlData ):
         Msg.__init__(self, xmlData)
-        self.Latitude = xmlData.find('Latitude').text
-        self.Longitude = xmlData.find('Longitude').text
+        self.Location_X = xmlData.find('Location_X').text
+        self.Location_Y = xmlData.find('Location_Y').text
+        self.Scale = xmlData.find('Scale').text
+        self.Label = xmlData.find('Label').text
