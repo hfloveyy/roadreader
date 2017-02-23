@@ -34,11 +34,17 @@ def reader(name):
     city 城市
     province 省份
     '''
-    #url2 = URL + '&name=' + name + '&adcode=210100'  + '&' + KEY
+    ret = '城市：'+content.json()['lives'][0]['city'] + '\n'+\
+          '温度：'+content.json()['lives'][0]['temperature']+'\n'+\
+          '湿度：'+content.json()['lives'][0]['humidity']+'\n'+ \
+          '风力：' + content.json()['lives'][0]['windpower'] + '\n' + \
+          '风向：' + content.json()['lives'][0]['winddirection'] + '\n' + \
+          '时间：' + content.json()['lives'][0]['reporttime'] + '\n'
+        #url2 = URL + '&name=' + name + '&adcode=210100'  + '&' + KEY
     #print(url2)
     #content2 = requests.get(url2)
     #print(content2.text)
-    return content.json()['lives'][0]['city']
+    return ret
 
 
 if __name__ == '__main__':
