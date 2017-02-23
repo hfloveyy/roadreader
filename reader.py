@@ -21,8 +21,9 @@ def reader(name):
 
     url = WEATHER_URL + KEY + '&city=' + name
     print(url)
-    content = requests.get(url)
-    print(content.json())
+    content = requests.get(url).json()
+
+    print(content)
     '''
     winddirection 西北
     adcode 城市编码
@@ -34,17 +35,20 @@ def reader(name):
     city 城市
     province 省份
     '''
-    ret = '城市：'+content.json()['lives'][0]['city'] + '\n'+\
-          '温度：'+content.json()['lives'][0]['temperature']+'\n'+\
-          '湿度：'+content.json()['lives'][0]['humidity']+'\n'+ \
-          '风力：' + content.json()['lives'][0]['windpower'] + '\n' + \
-          '风向：' + content.json()['lives'][0]['winddirection'] + '\n' + \
-          '时间：' + content.json()['lives'][0]['reporttime'] + '\n'
+    if content['status'] == 1:
+        ret = '城市：'+content['lives'][0]['city'] + '\n'+\
+              '温度：'+content['lives'][0]['temperature']+'\n'+\
+              '湿度：'+content['lives'][0]['humidity']+'\n'+ \
+              '风力：' + content['lives'][0]['windpower'] + '\n' + \
+              '风向：' + content['lives'][0]['winddirection'] + '\n' + \
+              '时间：' + content['lives'][0]['reporttime'] + '\n'
         #url2 = URL + '&name=' + name + '&adcode=210100'  + '&' + KEY
     #print(url2)
     #content2 = requests.get(url2)
     #print(content2.text)
-    return ret
+        return ret
+    else:
+        return '暂无法处理'
 
 
 if __name__ == '__main__':
