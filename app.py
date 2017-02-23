@@ -30,10 +30,6 @@ def wechat_auth():
 
         recMsg = receive.parse_xml(request.stream.read())
         if isinstance(recMsg, receive.Msg):
-            if recMsg.FromUserName in session:
-                pass
-            else:
-                session[recMsg.FromUserName] = recMsg.FromUserName
             if recMsg.MsgType == 'text':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
