@@ -53,3 +53,29 @@ class ImageMsg(Msg):
         </xml>
         """
         return XmlForm.format(**self.__dict)
+
+class LocationMsg(Msg):
+    def __init__(self, toUserName, fromUserName, location_x, location_y, scale, label):
+        self.__dict = dict()
+        self.__dict['ToUserName'] = toUserName
+        self.__dict['FromUserName'] = fromUserName
+        self.__dict['CreateTime'] = int(time.time())
+        self.__dict['Location_X'] = location_x
+        self.__dict['Location_Y'] = location_y
+        self.__dict['Scale'] = scale
+        self.__dict['Label'] = label
+
+    def send(self):
+        XmlForm = """
+        <xml>
+        <ToUserName><![CDATA[{ToUserName}]]></ToUserName>
+        <FromUserName><![CDATA[{FromUserName}]]></FromUserName>
+        <CreateTime>{CreateTime}</CreateTime>
+        <MsgType><![CDATA[location]]></MsgType>
+        <Location_X><![CDATA[{Location_X}]]></Location_X>
+        <Location_Y><![CDATA[{Location_Y}]]></Location_Y>
+        <Scale><![CDATA[{Scale}]]></Scale>
+        <Label><![CDATA[Label]]></Label>
+        </xml>
+        """
+        return XmlForm.format(**self.__dict)
