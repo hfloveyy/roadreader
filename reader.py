@@ -35,7 +35,7 @@ def reader(name):
     city 城市
     province 省份
     '''
-    if content['status'] == 1:
+    if content['status'] == '1':
         ret = '城市：'+content['lives'][0]['city'] + '\n'+\
               '温度：'+content['lives'][0]['temperature']+'\n'+\
               '湿度：'+content['lives'][0]['humidity']+'\n'+ \
