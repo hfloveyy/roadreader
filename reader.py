@@ -21,8 +21,8 @@ def reader(name):
 
     url = WEATHER_URL + KEY + '&city=' + name
     print(url)
-    content = requests.get(url).json()
-
+    ret_content = requests.get(url)
+    content = ret_content.json()
     print(content)
     '''
     winddirection 西北
