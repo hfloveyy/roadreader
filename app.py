@@ -4,7 +4,7 @@ from flask import Flask, request, make_response, session
 import hashlib
 import receive
 import reply
-import reader
+
 
 app = Flask(__name__)
 
