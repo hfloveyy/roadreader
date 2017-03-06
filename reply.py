@@ -3,7 +3,7 @@
 import time
 
 
-class Msg(object):
+class MsgReply(object):
     def __init__(self):
         pass
 
@@ -11,7 +11,7 @@ class Msg(object):
         return "success"
 
 
-class TextMsgReply(Msg):
+class TextMsgReply(MsgReply):
     def __init__(self, toUserName, fromUserName, content):
         self.__dict = dict()
         self.__dict['ToUserName'] = toUserName
