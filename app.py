@@ -33,7 +33,7 @@ def wechat_auth():
             if recMsg.MsgType == 'text':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
-                content = reader.reader(recMsg.Content)
+                content = recMsg.Content
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             elif recMsg.MsgType == 'location':
