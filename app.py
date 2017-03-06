@@ -27,6 +27,7 @@ def wechat_auth():
     try:
 
         recMsg = parse_xml(request.stream.read())
+        print(recMsg)
         if isinstance(recMsg, Msg):
             if recMsg.MsgType == 'text':
                 toUser = recMsg.FromUserName
