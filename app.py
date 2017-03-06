@@ -24,7 +24,6 @@ def wechat_auth():
         s = ''.join(s).encode('utf-8')
         if (hashlib.sha1(s).hexdigest() == signature):
             return make_response(echostr)
-    #xml_recv = ET.fromstring(request.data)
     try:
 
         recMsg = parse_xml(request.stream.read())
@@ -33,13 +32,13 @@ def wechat_auth():
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
                 content = recMsg.Content
-                replyMsg = TextMsg(toUser, fromUser, content)
+                replyMsg = TextMsgReply(toUser, fromUser, content)
                 return replyMsg.send()
             elif recMsg.MsgType == 'location':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
                 content = recMsg.Label
-                replyMsg = TextMsg(toUser, fromUser, content)
+                replyMsg = TextMsgReply(toUser, fromUser, content)
                 return replyMsg.send()
         else:
             print("暂且不处理")

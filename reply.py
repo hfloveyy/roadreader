@@ -11,7 +11,7 @@ class Msg(object):
         return "success"
 
 
-class TextMsg(Msg):
+class TextMsgReply(Msg):
     def __init__(self, toUserName, fromUserName, content):
         self.__dict = dict()
         self.__dict['ToUserName'] = toUserName
@@ -32,7 +32,7 @@ class TextMsg(Msg):
         return XmlForm.format(**self.__dict)
 
 
-class ImageMsg(Msg):
+class ImageMsgReply(Msg):
     def __init__(self, toUserName, fromUserName, mediaId):
         self.__dict = dict()
         self.__dict['ToUserName'] = toUserName
@@ -54,7 +54,7 @@ class ImageMsg(Msg):
         """
         return XmlForm.format(**self.__dict)
 
-class LocationMsg(Msg):
+class LocationMsgReply(Msg):
     def __init__(self, toUserName, fromUserName, location_x, location_y, scale, label):
         self.__dict = dict()
         self.__dict['ToUserName'] = toUserName
