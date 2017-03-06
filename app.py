@@ -2,9 +2,8 @@
 import time
 from flask import Flask, request, make_response, session
 import hashlib
-import receive
-import reply
-
+from .receive import *
+from .reply import *
 
 app = Flask(__name__)
 
@@ -28,19 +27,19 @@ def wechat_auth():
     #xml_recv = ET.fromstring(request.data)
     try:
 
-        recMsg = receive.parse_xml(request.stream.read())
-        if isinstance(recMsg, receive.Msg):
+        recMsg = parse_xml(request.stream.read())
+        if isinstance(recMsg, Msg):
             if recMsg.MsgType == 'text':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
                 content = recMsg.Content
-                replyMsg = reply.TextMsg(toUser, fromUser, content)
+                replyMsg = TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             elif recMsg.MsgType == 'location':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
                 content = recMsg.Label
-                replyMsg = reply.TextMsg(toUser, fromUser, content)
+                replyMsg = TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
         else:
             print("暂且不处理")
