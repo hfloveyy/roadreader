@@ -40,6 +40,12 @@ def wechat_auth():
                 content = recMsg.Label
                 replyMsg = TextMsgReply(toUser, fromUser, content)
                 return replyMsg.send()
+            else:
+                toUser = recMsg.FromUserName
+                fromUser = recMsg.ToUserName
+                content = '暂无法处理您的消息'
+                replyMsg = TextMsgReply(toUser, fromUser, content)
+                return replyMsg.send()
         else:
             print("暂且不处理")
             return "success"
